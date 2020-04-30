@@ -19,6 +19,10 @@ Route::get('/', function () {
 
 Auth::routes(["register" => false]);
 
+// Route::get('email', function(){
+// 	return new App\Mail\LoginCredentials(App\User::first(), 123123);	
+// });
+
 //Index de la pagina administracion
 Route::get('admin', 'HomeController@admin')->name('admin');
 

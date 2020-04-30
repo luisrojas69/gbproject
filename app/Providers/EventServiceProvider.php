@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\LogSuccessfulLogin',
         ],
+        'App\Event\Events\UserWasCreated' => [
+            'App\Listeners\SendLoginCredentials',
+        ],
             
         Registered::class => [
             SendEmailVerificationNotification::class,

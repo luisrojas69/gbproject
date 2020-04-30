@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Event\Events\UserWasCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
 use App\User;
@@ -73,8 +74,12 @@ class UserController extends Controller
 
         //Asignamos los Premisos
         $user->syncPermissions($request->permissions);
+
+        //Enviamos el Email
+
+        UserWasCreated::dispatch($user, $data['password']);
         
-        return redirect()->route('user.index')->with('success', 'Usuario creado correctamente '.$data['password']);
+        return redirect()->route('user.index')->with('success', 'Usuario creado correctamente');
     }
 
     /**
