@@ -26,17 +26,19 @@ Auth::routes(["register" => false]);
 //Index de la pagina administracion
 Route::get('admin', 'HomeController@admin')->name('admin');
 
-
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('admin/vehicle', 'Admin\VehicleController');
-Route::resource('admin/user', 'Admin\UserController');
-Route::resource('admin/role', 'Admin\RoleController');
-Route::put('users/{user}/roles', 'Admin\UsersRolesController@update')->name('admin.users.roles.update');
-Route::put('users/{user}/permissions', 'Admin\UsersPermissionsController@update')->name('admin.users.permissions.update');
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function(){
-	
 
-    
-	
+//Grupo de Rutas Portegidas
+Route::group([
+  'prefix'      => 'admin',
+  'namespace'   => 'Admin',
+  'middleware'  => 'auth'
+  ], function () {
+
+  	Route::resource('vehicle', 'VehicleController');
+	Route::resource('user', 'UserController');
+	Route::resource('role', 'RoleController');
+	Route::put('users/{user}/roles', 'UsersRolesController@update')->name('admin.users.roles.update');
+	Route::put('users/{user}/permissions', 'UsersPermissionsController@update')->name('admin.users.permissions.update');
 	Route::get('vehicles/reports', 'VehicleController@reports')->name('vehicles.report');
 });
