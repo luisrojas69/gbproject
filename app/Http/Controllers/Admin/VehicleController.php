@@ -26,7 +26,9 @@ class VehicleController extends Controller
     }
 
     public function create(){
-    	return view('pages.admin.vehicles.create');
+    	return view('pages.admin.vehicles.create', [
+            'vehicle' => new Vehicle
+        ]);
     }
 
     public function reports()
